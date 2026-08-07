@@ -5,7 +5,7 @@ import { colors } from "@/lib/theme";
 import { useState, useEffect, useRef } from "react";
 import {
   Eye, EyeOff, Lock, Settings, Palette, Crown, Star, BookOpen,
-  RotateCcw, BarChart2, Users, Archive, LogOut, Megaphone,
+  BarChart2, Users, Archive, LogOut, Megaphone,
 } from "lucide-react";
 import { useSiteConfig, type SiteConfig } from "@/context/SiteConfigContext";
 import { useSubmissions } from "@/context/SubmissionsContext";
@@ -35,7 +35,7 @@ export function ControlPanel() {
   const [saved, setSaved] = useState(false);
   const [showWritersModal, setShowWritersModal] = useState(false);
 
-  const { config, updateConfig, resetConfig, loading } = useSiteConfig();
+  const { config, updateConfig, loading } = useSiteConfig();
   const { submissions } = useSubmissions();
   const { votes } = useVotes();
   const { allPublished } = usePublishedArticles();
@@ -83,13 +83,6 @@ export function ControlPanel() {
     updateConfig(draft);
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
-  }
-
-  function handleReset() {
-    if (confirm("Reset all site settings to defaults? This cannot be undone.")) {
-      resetConfig();
-      setDraft({ ...config });
-    }
   }
 
   if (checkingSession) {
@@ -211,13 +204,6 @@ export function ControlPanel() {
             style={{ borderColor: colors.gray200, color: colors.gray700, backgroundColor: colors.gray100 }}
           >
             <LogOut size={13} /> Log Out
-          </button>
-          <button
-            onClick={handleReset}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm border hover:bg-red-50 transition-all active:scale-95"
-            style={{ borderColor: colors.red300, color: colors.red800 }}
-          >
-            <RotateCcw size={13} /> Reset to defaults
           </button>
         </div>
       </div>
